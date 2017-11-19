@@ -1,0 +1,7 @@
+.DS_Store
+/deps
+*.log
+*.db
+known_devices.yaml
+birthdays.json
+secrets.yaml

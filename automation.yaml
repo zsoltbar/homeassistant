@@ -1,0 +1,42 @@
+- alias: Daily weather in the morning
+  initial_state: true
+  trigger:
+    platform: time
+    at: '07:24:00'
+  condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
+        - sun
+  action:
+    service: notify.ios_zsolti
+    data:
+      message: "{{ states.sensor.weather_hourly_summary.state }} The temperatures will range from a minimum of {{ states.sensor.weather_daily_low_temperature.state }} to a maximum of {{ states.sensor.weather_daily_high_temperature.state }}"
+
+- alias: New joke At Startup
+  initial_state: true
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    - delay:
+        seconds: 15
+    - service: persistent_notification.create
+      data:
+        title: 'Chuck Norris fact:'
+        message: '{{ states.sensor.fact_of_the_day.state  }}'
+
+- alias: Update notifications
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: updater.updater
+  action:
+    service: notify.ios_zsolti
+    data_template: 
+      message: "New Home Assistant {{ states.updater.updater.state }} is now available."

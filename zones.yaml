@@ -1,0 +1,25 @@
+- name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  radius: 100
+  icon: mdi:home
+  track_ios: true
+
+- name: Work
+  latitude: !secret worklatitude
+  longitude: !secret worklongitude
+  radius: 100
+  icon: mdi:briefcase
+
+- name: PetraSchool
+  latitude: !secret hajoslatitude
+  longitude: !secret hajoslongitude
+  radius: 100
+  icon: mdi:bone
+
+- name: DonatSchool
+  latitude: !secret istvanlatitude
+  longitude: !secret istvanlongitude
+  radius: 100
+  icon: mdi:school
+

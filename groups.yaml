@@ -1,0 +1,101 @@
+default_view:
+  view: yes
+  name: Home
+  icon: mdi:home
+  entities:
+    - group.weather
+    - group.lights
+    - group.switches
+    - group.family
+    - group.battery
+    - group.nas
+    - group.network
+    - group.heating
+    - group.cleaning
+    - group.travel
+    - group.automation
+    - camera.zsolti
+
+travel:
+  name: Travel
+  entities:
+    - sensor.zsolti_to_work
+    - sensor.donat_to_school
+
+cleaning:
+  name: Cleaning
+  icon: mdi:roomba
+  entities:
+    - vacuum.roomcajsz
+
+automation:
+  name: Automations
+  entities:
+    - automation.daily_weather_in_the_morning
+    - automation.new_joke_at_startup
+
+battery:
+  name: Battery
+  entities:
+    - sensor.zsolt_battery_level
+    - sensor.zsofia_iphoneja_battery_level
+    - sensor.baripad_battery_level
+
+heating:
+  name: Heating
+  entities:
+    - climate.nappali
+    - sensor.nappali_humidity
+    - climate.konyha
+    - sensor.konyha_humidity
+
+network:
+  name: Network
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+
+nas: 
+  name: NAS
+  entities: 
+    - sensor.barinas_status
+    - sensor.barinas_cpu_usage
+    - sensor.barinas_cpu_temperature
+    - sensor.barinas_memory_usage
+    - sensor.barinas_free_space_volume_1
+    - sensor.barinas_used_space_volume_1
+
+family:
+  name: Family
+  icon: mdi:home
+  entities:
+    - device_tracker.zsolti
+    - device_tracker.zsofi
+    - device_tracker.donat
+
+weather:
+  name: Weather
+  entities:
+#    - sensor.weather_summary
+    - sun.sun
+    - sensor.weather_summary
+    - sensor.weather_temperature
+    - sensor.weather_minimum
+    - sensor.weather_maximum
+    - sensor.weather_precip_intensity
+    - sensor.weather_humidity
+
+lights:
+  name: Lights
+  icon: mdi:lightbulb-outline
+  entities:
+    - light.kitchen
+    - light.living_room_color  
+    - light.living_room_white
+
+
+switches:
+  name: Switches
+  entities:
+    - switch.hot_water

@@ -1,0 +1,89 @@
+homeassistant:
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: !secret elevation
+  unit_system: metric
+  time_zone: !secret timezone
+
+logger:
+  default: debug
+
+frontend:
+config:
+
+http:
+  api_password: !secret http_api_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+updater:
+discovery:
+conversation:
+history:
+logbook:
+map:
+sun:
+ios:
+
+sensor: !include sensors.yaml
+
+camera: !include cameras.yaml
+
+# Text to speech
+tts:
+  platform: google
+
+homematic:
+  local_ip: !secret hm_ip
+  hosts:
+    wireless: 
+      ip: !secret homematic_ip
+      resolvenames: xml
+      username: !secret homematic_user
+      password: !secret homematic_password
+      primary: true
+      variables: true
+    ip:
+      ip: !secret homematic_ip
+      port: 2010
+      resolvenames: xml
+      username: !secret homematic_user
+      password: !secret homematic_password
+      primary: false
+      variables: true
+
+vacuum:
+  platform: roomba
+  host: !secret irobot_ip
+  username: !secret irobot_username
+  password: !secret irobot_password
+  name: Roomcajsz
+
+light: 
+  platform: hue
+  host: !secret hue_ip
+
+switch:
+  - platform: tplink
+    host: !secret tplink_ip
+    name: "Hot Water"
+
+media_player:
+  - platform: samsungtv
+    host: !secret samsung_ip
+    port: 8001
+    name: "Livingroom TV"
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.0.1-255
+    consider_home: 300
+    interval_seconds: 20
+    track_new_devices: false
+  - platform: upc_connect
+    host: !secret upc_connect_ip
+
+zone: !include zones.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
