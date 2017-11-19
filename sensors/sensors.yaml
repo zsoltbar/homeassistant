@@ -2,15 +2,6 @@
 
 - platform: uptime
 
-- platform: time_date
-  display_options:
-    - 'time'
-    - 'date'
-    - 'date_time'
-    - 'time_date'
-    - 'time_utc'
-    - 'beat'
-
 - platform: command_line
   name: badlogin
   command: grep -c 'Login attempt' /home/hass/.homeassistant/home-assistant.log
@@ -20,3 +11,9 @@
   command: "cat /sys/class/thermal/thermal_zone0/temp"
   unit_of_measurement: "C"
   value_template: '{{ value | multiply(0.001) }}'
+
+- platform: template
+  sensors:
+    day_of_tomorrow:
+      friendly_name: "Day of tomorrow"
+      value_template: '{{ (as_timestamp(now()) + 86400) | timestamp_custom("%A",true) }}'

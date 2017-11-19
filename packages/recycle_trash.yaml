@@ -17,11 +17,11 @@ homeassistant:
     group.recycle_schedule:
       order: 11
 
-    sensor.trash_day:
-      friendly_name: Is it Trash Day today?
+    sensor.trash_day_tomorrow:
+      friendly_name: Is it Trash Day tomorrow?
       icon: mdi:delete-variant
-    sensor.recycle_day:
-      friendly_name: Is it Recycle Day today?
+    sensor.recycle_day_tomorrow:
+      friendly_name: Is it Recycle Day tomorrow?
       icon: mdi:recycle
     sensor.trash_pickup_day:
       friendly_name: Trach Pickup Day
@@ -45,13 +45,13 @@ homeassistant:
 group:
   Trash Schedule:
     entities:
-      - sensor.trash_day
+      - sensor.trash_day_tomorrow
       - sensor.trash_pickup_day
       - input_select.trash_pickup_day
 
   Recycle Schedule:
     entities:
-      - sensor.recycle_day    
+      - sensor.recycle_day_tomorrow    
       - sensor.recycle_pickup_day
       - sensor.recycle_pickup_week
       - input_select.recycle_pickup_day
@@ -158,14 +158,10 @@ sensor:
 ###############################################################################
   - platform: template
     sensors:
-      trash_day:
+      trash_day_tomorrow:
         value_template: >-
-          {% set year = states.sensor.date__time.state.split(',')[0].split('-')[0] %}
-          {% set month = states.sensor.date__time.state.split(',')[0].split('-')[1] %}
-          {% set date = states.sensor.date__time.state.split(',')[0].split('-')[2] %}
-          {% set today = strptime(year ~ '-' ~ month ~ '-' ~ date , '%Y-%m-%d') %}
           {%- set pickupDay = states.sensor.trash_pickup_day.state | lower -%}      
-          {%- if as_timestamp(today)| timestamp_custom('%A', true) | lower == pickupDay -%}
+          {%- if states.sensor.day_of_tomorrow | lower == pickupDay -%}
             yes
           {%- else -%}
             no
@@ -176,21 +172,18 @@ sensor:
 ###############################################################################
   - platform: template
     sensors:
-      recycle_day:
+      recycle_day_tomorrow:
         value_template: >-
           {% set year = states.sensor.date__time.state.split(',')[0].split('-')[0] %}
           {% set month = states.sensor.date__time.state.split(',')[0].split('-')[1] %}
           {% set date = states.sensor.date__time.state.split(',')[0].split('-')[2] %}
-          {% set today = strptime(year ~ '-' ~ month ~ '-' ~ date , '%Y-%m-%d') %}    
+          {% set today = strptime(year ~ '-' ~ month ~ '-' ~ date , '%Y-%m-%d') %}
           {%- set pickupDay = states.sensor.recycle_pickup_day.state | lower -%}
           {% if states.input_select.recycle_pickup_week.state | lower == "even weeks" %}
             {%- set evenWeekPickup = "true" %}
           {% else %}
             {%- set evenWeekPickup = "false" %}
           {% endif %}
-          {%- macro day_of_week(timestamp) -%}
-            {{ as_timestamp(timestamp)| timestamp_custom('%A', true) | lower }}
-          {%- endmacro %}      
           {%- macro week_number_of_year() -%}
             {{ as_timestamp(today) | timestamp_custom('%U', true) | int }}
           {%- endmacro %}
@@ -211,7 +204,7 @@ sensor:
           {%- endmacro -%}
           {%- macro is_it_today() -%}
           {%- if is_it_this_week() == "true" -%}
-            {%- if day_of_week(today) | lower == pickupDay -%}
+            {%- if states.sensor.day_of_tomorrow | lower == pickupDay -%}
               yes
             {%- else -%}
               no
@@ -321,24 +314,24 @@ automation:
       - condition: or
         conditions:
           - condition: state
-            entity_id: sensor.trash_day
+            entity_id: sensor.trash_day_tomorrow
             state: 'yes'
           - condition: state
-            entity_id: sensor.recycle_day
+            entity_id: sensor.recycle_day_tomorrow
             state: 'yes'
     action:
       - service: notify.ios_zsolti
         data_template:
           title: >
-            {% if states.sensor.trash_day.state == "yes" %}
+            {% if states.sensor.trash_day_tomorrow.state == "yes" %}
               Trash Pickup Tomorrow!
-            {% elif states.sensor.recycle_day.state == "yes" %}
+            {% elif states.sensor.recycle_day_tomorrow.state == "yes" %}
               Recycle Pickup Tomorrow!
             {% endif %}
           message: >
-            {% if states.sensor.trash_day.state == "yes" %}
+            {% if states.sensor.trash_day_tomorrow.state == "yes" %}
               Please leave trash bin outside tonight. Thank you!
-            {% elif states.sensor.recycle_day.state == "yes" %}
+            {% elif states.sensor.recycle_day_tomorrow.state == "yes" %}
               Please leave recycle bin outside tonight. Thank you!
             {% endif %}
           data:
