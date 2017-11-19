@@ -1,10 +1,24 @@
 - platform: google_travel_time
   api_key: !secret google_travel_time_api_key
-  name: Zsolti to work
+  name: Zsolti Home to Work
   origin: zone.Home
   destination: zone.Work
   options:
     mode: transit
+    
+- platform: google_travel_time
+  api_key: !secret google_travel_time_api_key
+  name: Zsolti Work to Home
+  origin: zone.Work
+  destination: zone.Home
+  options:
+    mode: transit
+    
+- platform: google_travel_time
+  api_key: !secret google_travel_time_api_key
+  name: Zsolti Location To Home
+  origin: device_tracker.zsolti
+  destination: zone.Home
     
 - platform: google_travel_time
   api_key: !secret google_travel_time_api_key

@@ -25,7 +25,9 @@ extras:
 travel:
   name: Travel
   entities:
-    - sensor.zsolti_to_work
+    - sensor.zsolti_home_to_work
+    - sensor.zsolti_work_to_home
+    - sensor.zsolti_location_to_home
     - sensor.donat_to_school
 
 cleaning:
