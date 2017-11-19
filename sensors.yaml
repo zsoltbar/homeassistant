@@ -11,10 +11,10 @@
     - download
     - upload
 
-- platform: mqtt
-  state_topic: 'birthdays'  
-  name: Birthday
-  scan_interval: 14400
+- platform: rest
+  name: Birthday  
+  resource: !secret qnap_web_birthday_url 
+  scan_intercal: 14400
   value_template: >
     {% set today = now().month  ~ '/' ~ now().day  %}
     {% set event =  value_json.Birthdays.static[ today ] %}
@@ -82,3 +82,13 @@
   destination: zone.DonatSchool
   options:
     mode: transit
+
+- platform: command_line
+  name: badlogin
+  command: grep -c 'Login attempt' /home/hass/.homeassistant/home-assistant.log
+
+- platform: command_line
+  name: CPU Temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "C"
+  value_template: '{{ value | multiply(0.001) }}'

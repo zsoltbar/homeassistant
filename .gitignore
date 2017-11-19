@@ -3,7 +3,8 @@
 .DS_Store
 /deps
 *.log
-*.db
+*.db*
+.uuid
 phue.conf
 known_devices.yaml
 birthdays.json

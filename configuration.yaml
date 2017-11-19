@@ -9,6 +9,10 @@ homeassistant:
 logger:
   default: debug
 
+customize:
+  sensor.bithday:
+    icon: 'mdi:cake-variant'
+
 frontend:
 config:
 
@@ -30,9 +34,14 @@ sensor: !include sensors.yaml
 
 camera: !include cameras.yaml
 
+input_select: !include input_select.yaml
+
 # Text to speech
 tts:
   platform: google
+
+climate:
+  platform: homematic
 
 homematic:
   local_ip: !secret hm_ip
