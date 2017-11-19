@@ -160,8 +160,9 @@ sensor:
     sensors:
       trash_day_tomorrow:
         value_template: >-
-          {%- set pickupDay = states.sensor.trash_pickup_day.state | lower -%}      
-          {%- if states.sensor.day_of_tomorrow | lower == pickupDay -%}
+          {%- set pickupDay = states.sensor.trash_pickup_day.state | lower -%}
+          {%- set day_of_tomorrow = states.sensor.day_of_tomorrow.state | lower  -%}
+          {%- if day_of_tomorrow == pickupDay -%}
             yes
           {%- else -%}
             no
@@ -179,6 +180,7 @@ sensor:
           {% set date = states.sensor.date__time.state.split(',')[0].split('-')[2] %}
           {% set today = strptime(year ~ '-' ~ month ~ '-' ~ date , '%Y-%m-%d') %}
           {%- set pickupDay = states.sensor.recycle_pickup_day.state | lower -%}
+          {%- set day_of_tomorrow = states.sensor.day_of_tomorrow.state | lower  -%}
           {% if states.input_select.recycle_pickup_week.state | lower == "even weeks" %}
             {%- set evenWeekPickup = "true" %}
           {% else %}
@@ -204,7 +206,7 @@ sensor:
           {%- endmacro -%}
           {%- macro is_it_today() -%}
           {%- if is_it_this_week() == "true" -%}
-            {%- if states.sensor.day_of_tomorrow | lower == pickupDay -%}
+            {%- if day_of_tomorrow == pickupDay -%}
               yes
             {%- else -%}
               no
