@@ -29,7 +29,25 @@ history:
 logbook:
 map:
 sun:
+
 ios:
+  push:
+    categories:
+      - name: Trash Recycle
+        identifier: 'trash_recycle'
+        actions:
+          - identifier: 'TRASH_LEFT'
+            title: 'Done'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: yes
+            behavior: 'default'
+          - identifier: 'TRASH_REMIND_LATER'
+            title: 'Remind Later'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: yes
+            behavior: 'default'
 
 sensor: !include_dir_merge_list sensors
 

@@ -74,6 +74,12 @@ group:
 ###############################################################################
 #  UI Elements
 ###############################################################################
+input_boolean:
+  trash_reminders:
+    name: Notify when trash or recycle bins are due
+    initial: on
+    icon: mdi:recycle
+    
 input_select:
   trash_pickup_day:
     name: Current Trash Pickup Day (Evey Week)
@@ -117,17 +123,17 @@ sensor:
       - 'time_utc'
       - 'beat'
   - platform: mqtt
-    state_topic: "/home/trashpickupday"
+    state_topic: "/home/homeassistant/.homeassistant/trashpickupday"
     name: "Trash Pickup Day"
     value_template: "{{ value }}"
     qos: 1  
   - platform: mqtt
-    state_topic: "/home/recyclepickupday"
+    state_topic: "/home/homeassistant/.homeassistant/recyclepickupday"
     name: "Recycle Pickup Day"
     value_template: "{{ value }}"
     qos: 1
   - platform: mqtt
-    state_topic: "/home/recyclepickupweek"
+    state_topic: "/home/homeassistant/.homeassistant/recyclepickupweek"
     name: "Recycle Pickup Week"
     value_template: "{{ value }}"
     qos: 1
@@ -237,7 +243,7 @@ automation:
     action:
       - service: mqtt.publish
         data_template:
-          topic: "/home/trashpickupday"
+          topic: "/home/homeassistant/.homeassistant/trashpickupday"
           retain: true
           payload: '{{ states.input_select.trash_pickup_day.state }}'
 
@@ -250,7 +256,7 @@ automation:
     action:
       - service: mqtt.publish
         data_template:
-          topic: "/home/recyclepickupday"
+          topic: "/home/homeassistant/.homeassistant/recyclepickupday"
           retain: true
           payload: '{{ states.input_select.recycle_pickup_day.state }}'
 
@@ -263,7 +269,7 @@ automation:
     action:
       - service: mqtt.publish
         data_template:
-          topic: "/home/recyclepickupweek"
+          topic: "/home/homeassistant/.homeassistant/recyclepickupweek"
           retain: true
           payload: '{{ states.input_select.recycle_pickup_week.state }}'
 
@@ -323,7 +329,7 @@ automation:
             entity_id: sensor.recycle_day
             state: 'yes'
     action:
-      - service: notify.ios_suresh
+      - service: notify.ios_zsolti
         data_template:
           title: >
             {% if states.sensor.trash_day.state == "yes" %}
@@ -367,7 +373,7 @@ automation:
       event_data:
         actionName: TRASH_LEFT
     action:
-      - service: notify.ios_suresh
+      - service: notify.ios_zsolti
         data:
           message: "Great job, Thank you!"
       - service: input_boolean.turn_off
@@ -382,7 +388,7 @@ automation:
       event_data:
         actionName: TRASH_REMIND_LATER
     action:
-      - service: notify.ios_suresh
+      - service: notify.ios_zsolti
         data:
           message: "Will remind you again in an hour!"
       - service: input_boolean.turn_on

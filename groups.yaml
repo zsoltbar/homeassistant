@@ -23,6 +23,7 @@ extras:
   name: Extras
   entities:
     - input_select.morning_alarm
+    - input_boolean.trash_reminders
 
 travel:
   name: Travel
