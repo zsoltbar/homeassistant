@@ -16,8 +16,6 @@ homeassistant:
       order: 10
     group.recycle_schedule:
       order: 11
-    group.trash_and_recycle_automations:
-      order: 12
 
     sensor.trash_day:
       friendly_name: Is it Trash Day today?
@@ -347,23 +345,7 @@ automation:
             push:
               badge: 0
               category: "trash_recycle"
-
-      - service: script.notify_me
-        data_template:
-          message: >
-            {% if states.sensor.trash_day.state == "yes" %}
-              Tomorrow is the Trash Pickup day. Put the Trash bin outside, please!
-            {% elif states.sensor.recycle_day.state == "yes" %}
-              Tomorrow is the Recycle Pickup day. Put the Recycle bin outside, please!              
-            {% endif %}
-      - service: script.voice_notify
-        data_template:
-          message: >
-            {% if states.sensor.trash_day.state == "yes" %}
-              Attention!: Tomorrow is the Trash Pickup day. Please don't forget to put the Trash bin outside tonight!
-            {% elif states.sensor.recycle_day.state == "yes" %}
-              Attention!: Tomorrow is the Recycle Pickup day. Please don't forget to put the recycle bin outside tonight!
-            {% endif %}
+              
   - alias: Trash and Recycle Bin Left Outside Already
     initial_state: true
     hide_entity: true
