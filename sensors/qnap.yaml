@@ -1,0 +1,15 @@
+- platform: qnap
+  host: !secret qnap_ip                          
+  username: !secret qnap_user                        
+  password: !secret qnap_password         
+  nics: eth0
+  monitored_conditions:
+    - status
+    - memory_percent_used
+    - cpu_usage
+    - cpu_temp
+    - network_tx
+    - network_rx
+    - volume_size_free
+    - volume_size_used
+    - volume_percentage_used

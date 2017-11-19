@@ -1,0 +1,14 @@
+- platform: rest
+  name: Birthday  
+  resource: !secret qnap_web_birthday_url 
+  scan_intercal: 14400
+  value_template: >
+    {% set today = now().month  ~ '/' ~ now().day  %}
+    {% set event =  value_json.Birthdays.static[ today ] %}
+    {{ event }}
+    
+- platform: rest
+  name: fact_of_the_day
+  resource: http://api.icndb.com/jokes/random?firstName=Chuck&lastName=Norris&limitTo=[nerdy]
+  value_template: '{{ value_json.value.joke }}'
+  scan_interval: 86400

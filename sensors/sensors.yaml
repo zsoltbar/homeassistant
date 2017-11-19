@@ -1,0 +1,13 @@
+- platform: yr
+
+- platform: uptime
+
+- platform: command_line
+  name: badlogin
+  command: grep -c 'Login attempt' /home/hass/.homeassistant/home-assistant.log
+
+- platform: command_line
+  name: CPU Temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "C"
+  value_template: '{{ value | multiply(0.001) }}'

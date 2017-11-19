@@ -1,0 +1,15 @@
+- platform: google_travel_time
+  api_key: !secret google_travel_time_api_key
+  name: Zsolti to work
+  origin: zone.Home
+  destination: zone.Work
+  options:
+    mode: transit
+    
+- platform: google_travel_time
+  api_key: !secret google_travel_time_api_key
+  name: Donat to school
+  origin: zone.Home
+  destination: zone.DonatSchool
+  options:
+    mode: transit
