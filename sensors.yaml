@@ -11,8 +11,8 @@
     - download
     - upload
 
-- platform: rest
-  resource: https://raw.githubusercontent.com/zsoltbar/homeassistant/master/data/birthdays.json
+- platform: mqtt
+  state_topic: 'birthdays'  
   name: Birthday
   scan_interval: 14400
   value_template: >
