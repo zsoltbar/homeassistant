@@ -2,6 +2,15 @@
 
 - platform: uptime
 
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'time_date'
+    - 'time_utc'
+    - 'beat'
+
 - platform: command_line
   name: badlogin
   command: grep -c 'Login attempt' /home/hass/.homeassistant/home-assistant.log

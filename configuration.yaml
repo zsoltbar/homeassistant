@@ -55,6 +55,11 @@ camera: !include cameras.yaml
 
 input_select: !include input_select.yaml
 
+input_datetime:
+  date_tomorrow:
+    name: "Date for tomorrow"
+    value_template: {{(as_timestamp(now())+ (86400)) | timestamp_custom("%A",true)}}
+
 # Text to speech
 tts:
   platform: google
