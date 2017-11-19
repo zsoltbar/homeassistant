@@ -16,6 +16,8 @@ default_view:
     - group.automation
     - camera.zsolti
     - group.extras
+    - group.recycle_schedule
+    - group.trash_schedule
 
 extras:
   name: Extras

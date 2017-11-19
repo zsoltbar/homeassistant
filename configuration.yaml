@@ -5,6 +5,7 @@ homeassistant:
   elevation: !secret elevation
   unit_system: metric
   time_zone: !secret timezone
+  packages: !include_dir_named packages
 
 logger:
   default: debug
