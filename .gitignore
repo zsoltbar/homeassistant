@@ -2,6 +2,7 @@
 /deps
 *.log
 *.db
+phue.conf
 known_devices.yaml
 birthdays.json
 secrets.yaml
