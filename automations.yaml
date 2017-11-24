@@ -29,7 +29,20 @@
     - service: persistent_notification.create
       data:
         title: 'Chuck Norris fact:'
-        message: '{{ states.sensor.fact_of_the_day.state  }}'
+        message: '{{ states.sensor.fact_of_the_day.state }}'
+
+- alias: Birthday Notification
+  initial_state: true
+  trigger:
+    platform: time
+    at: '06:24:00'
+  condition:
+    - condition: template
+        value_template: '{{ states.sensor.birthday.state != "" }}'
+  action:
+    service: notify.ios_zsolti
+    data:
+      message: "Make sure you won't forget this: {{ states.sensor.birthday.state }}"
 
 - alias: Update notifications
   initial_state: true
