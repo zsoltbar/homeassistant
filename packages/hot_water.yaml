@@ -1,0 +1,57 @@
+homeassistant:
+  customize:
+    input_number.booster:
+      icon: mdi:clock-end
+    scene.boostit:
+      icon: mdi:hot-tub 
+      friendly_name: "Let's make hot water"
+
+group:  
+  switches:
+    name: "Hot Water"
+    entities:
+      - switch.hot_water
+      - input_number.booster
+      - scene.boostit
+
+switch:
+  - platform: tplink
+    host: !secret tplink_ip
+    name: "Hot Water"
+
+input_number:
+  booster:
+    name: "Boost timer:"
+    initial: 1
+    min: 0
+    max: 10
+    step: 1
+
+scene:
+  name: boostit
+  entities:
+    switch.hot_water: on
+
+automation:
+  alias: "Lets make hot water"
+  trigger:
+    platform: event
+    event_type: call_service 
+    event_data: 
+      service_data:
+        entity_id: scene.boostit
+      domain: scene 
+      service: turn_on
+  action:
+    service: script.turn_on
+    entity_id: script.boost_hot_water_pump
+
+script:
+  boost_hot_water_pump:
+      alias: "Trigger - Hot Water Pump"
+      sequence:
+        - delay: '00:{{ states.input_number.booster.state | int }}:00'
+        - service: switch.turn_off
+          entity_id: switch.hot_water
+
+

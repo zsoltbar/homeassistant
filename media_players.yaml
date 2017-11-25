@@ -1,0 +1,8 @@
+- platform: samsungtv
+  host: !secret samsung_ip
+  port: 8001
+  name: "Livingroom TV"
+
+- platform: philips_js
+  host: !secret philips_ip
+  name: "Bedroom TV"
