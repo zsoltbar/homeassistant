@@ -106,8 +106,3 @@ lights:
     - light.living_room_color  
     - light.living_room_white
 
-
-switches:
-  name: Switches
-  entities:
-    - switch.hot_water

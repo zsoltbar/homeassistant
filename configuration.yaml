@@ -7,7 +7,7 @@ homeassistant:
   time_zone: !secret timezone
   packages: !include_dir_named packages
   customize:
-    sensor.birthdays:
+    sensor.birthday:
       icon: mdi:cake-variant
 
 logger:
@@ -90,11 +90,6 @@ vacuum:
 light: 
   platform: hue
   host: !secret hue_ip
-
-switch:
-  - platform: tplink
-    host: !secret tplink_ip
-    name: "Hot Water"
 
 media_player:
   - platform: samsungtv
