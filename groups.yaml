@@ -18,6 +18,13 @@ default_view:
     - group.extras
     - group.recycle_schedule
     - group.trash_schedule
+    - group.tv
+
+tv:
+  name: Television
+  entities:
+    - media_player.samsungtv
+    - media_player.philips_js
 
 extras:
   name: Extras

@@ -10,6 +10,8 @@ homeassistant:
     sensor.birthday:
       icon: mdi:cake-variant
 
+system_log:
+
 logger:
   default: debug
 
