@@ -4,7 +4,7 @@
 
 - platform: command_line
   name: badlogin
-  command: grep -c 'Login attempt' /home/hass/.homeassistant/home-assistant.log
+  command: grep -c 'Login attempt' /home/homeassistant/.homeassistant/home-assistant.log
 
 - platform: command_line
   name: CPU Temperature
