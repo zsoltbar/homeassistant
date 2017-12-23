@@ -19,6 +19,7 @@ default_view:
     - group.recycle_schedule
     - group.trash_schedule
     - group.tv
+    - group.extlights
 
 tv:
   name: Television

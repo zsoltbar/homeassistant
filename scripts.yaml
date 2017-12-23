@@ -1,0 +1,7 @@
+'1512928008954':
+  alias: Holiday script
+  sequence:
+  - after: '15:00'
+    before: '21:00'
+    condition: time
+  - service: homeassistant.turn_on

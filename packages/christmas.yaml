@@ -1,0 +1,42 @@
+homeassistant:
+  customize:
+    switch.external_lights:
+      icon: mdi:pine-tree 
+
+group:  
+  extlights:
+    name: "Christmas Lights"
+    entities:
+      - switch.external_lights
+
+switch:
+  - platform: tplink
+    host: !secret tplink_ip_2
+    name: "External Lights"
+
+automation:
+  - alias: Lights on
+    trigger:
+      platform: sun
+      event: sunset
+      offset: "-00:15:00"
+    condition:
+      condition: state
+      entity_id: group.all_devices
+      state: home
+    action:
+      service: homeassistant.turn_on
+      entity_id: group.extlights
+  - alias: Lights off
+    trigger:
+      platform: sun
+      event: sunrise
+      offset: "00:15:00"
+    condition:
+      condition: state
+      entity_id: group.all_devices
+      state: home
+    action:
+      service: homeassistant.turn_off
+      entity_id: group.extlights
+
