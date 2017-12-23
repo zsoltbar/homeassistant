@@ -13,7 +13,7 @@ homeassistant:
 system_log:
 
 logger:
-  default: debug
+  default: warn
 
 frontend:
 config:
@@ -65,22 +65,24 @@ climate:
 
 homematic:
   local_ip: !secret hm_ip
-  hosts:
-    wireless: 
-      ip: !secret homematic_ip
+  interfaces:
+    rf: 
+      host: !secret homematic_ip
+      port: 2001 
       resolvenames: xml
-      username: !secret homematic_user
-      password: !secret homematic_password
-      primary: true
-      variables: true
     ip:
-      ip: !secret homematic_ip
+      host: !secret homematic_ip
       port: 2010
+    groups:
+      host: !secret homematic_ip
+      port: 9292
       resolvenames: xml
+      path: /groups
+  hosts:
+    ccu2:
+      host: !secret homematic_ip
       username: !secret homematic_user
       password: !secret homematic_password
-      primary: false
-      variables: true
 
 vacuum:
   platform: roomba
